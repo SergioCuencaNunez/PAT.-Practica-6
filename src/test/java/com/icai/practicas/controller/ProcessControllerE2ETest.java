@@ -29,9 +29,9 @@ public class ProcessControllerE2ETest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void testing_step1_legacy_then_ok() {
+    public void testing_process_data_legacy_then_ok() {
 
-        //Given
+        // Given
         String address = "http://localhost:" + port + "/api/v1/process-step1-legacy";
         MultiValueMap<String, String> data = new LinkedMultiValueMap<String,String>();
         data.add("fullName","Sergio Cuenca Núñez");
@@ -40,19 +40,19 @@ public class ProcessControllerE2ETest {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(data, headers);
 
-        //When
+        // When
         ResponseEntity<String> result = this.restTemplate.postForEntity(address, request, String.class);
 
-        //Then
+        // Then
         String expectedResult = ResponseHTMLGenerator.message1;
         then(result.getBody()).isEqualTo(expectedResult);
         then(result.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
-    public void testing_step1_legacy_then_ko() {
+    public void testing_process_data_legacy_then_ko() {
 
-        //Given
+        // Given
         String address = "http://localhost:" + port + "/api/v1/process-step1-legacy";
         MultiValueMap<String, String> data = new LinkedMultiValueMap<String,String>();
         data.add("fullName","Sergio Cuenca Núñez");
@@ -61,12 +61,54 @@ public class ProcessControllerE2ETest {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(data, headers);
 
-        //When
+        // When
         ResponseEntity<String> result = this.restTemplate.postForEntity(address, request, String.class);
 
-        //Then
+        // Then
         String expectedResult = ResponseHTMLGenerator.message2;
         then(result.getBody()).isEqualTo(expectedResult);
+        then(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    public void testing_process_data_then_ok() {
+
+        // Given
+        String address = "http://localhost:" + port + "/api/v1/process-step1";
+        DataRequest dataRequest = new DataRequest("Sergio Cuenca Núñez","28733194F","+34 645889302");
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<ProcessController.DataRequest> request = new HttpEntity<>(dataRequest, headers);
+
+        // When
+        ResponseEntity<ProcessController.DataResponse> result = this.restTemplate.postForEntity(address, request, ProcessController.DataResponse.class);
+
+        // Then
+        String expectedResult = "OK";
+        DataResponse expectedResponse = new DataResponse(expectedResult);
+
+        then(result.getBody().result()).isEqualTo(expectedResult);
+        then(result.getBody()).isEqualTo(expectedResponse);
+        then(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    public void testing_process_data_then_ko() {
+
+        // Given
+        String address = "http://localhost:" + port + "/api/v1/process-step1";
+        DataRequest dataRequest = new DataRequest("Sergio Cuenca Núñez","749GR7820","+65430456");
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<ProcessController.DataRequest> request = new HttpEntity<>(dataRequest, headers);
+
+        // When
+        ResponseEntity<ProcessController.DataResponse> result = this.restTemplate.postForEntity(address, request, ProcessController.DataResponse.class);
+
+        // Then
+        String expectedResult = "KO";
+        DataResponse expectedResponse = new DataResponse(expectedResult);
+
+        then(result.getBody().result()).isEqualTo(expectedResult);
+        then(result.getBody()).isEqualTo(expectedResponse);
         then(result.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 }
