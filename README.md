@@ -1,47 +1,11 @@
 # Práctica 6: Testing de una aplicacion de Spring Boot
 
-## Objetivo de la práctica
+En esta práctica se han implementado una serie de tests para comprobar el correcto funcionamiento de las clases ``DNI``,``Telefono`` y `ProcessController`. Para las dos primeras, se han añadido ``Unit Tests`` y para la última, ``E2E Tests``. Para ello se ha creado el paquete `test` en el cuál se encuentran dos carpetas: ``controller`` y ``model``.
 
-Dado un desarrollo de Spring Boot, es necesario anhadir tests a las siguientes clases:
+* ``DNITest`` es la clase encargada de realizar 3 tests, uno para corroborar que el DNI cumple con el formato adecuado, otro para los que no lo cumplen y el último que excluye los DNIs que no están permitidos por el Ministerio del Interior y son inválidos. <br> En cada test se han incluido numerosas casuísticas ya sea para probar distinitos DNIs válidos y para excluir aquellos que, por ejemplo, tienen más de una letra o son muy cortos.
 
-- DNI & Telefono (Unit Tests) (Cada clase tiene un metodo y varias casuisticas para probar)
-- ProcessController (E2E Tests) (2 endpoints)
 
-```
-mvn clean spring-boot:run
+* ``TelefonoTest`` realiza 2 test, uno para verificar los teléfonos correctos y que cumplen con las condiciones y, otro para no aceptar los teléfonos que no cumplen el formato. <br> De la misma forma, se incluyen varias casuísticas para comprobar numerosos de todo tipo (con guiones, puntos y prefijos internacionales) y no aceptar aquellos que no cumplen con la longitud requerida o tienen símbolos no aceptados.
 
-curl -v -X POST http://localhost:8080/api/v1/process-step1-legacy \
-   -H "Content-Type: application/x-www-form-urlencoded" \
-   -d "fullName=Juan%20Antonio%20Brena%20Moral&dni=12345678Z&telefono=%2B34%20600903434"
 
-curl -v -X POST http://localhost:8080/api/v1/process-step1 \
-   -H 'Content-Type: application/json' \
-   -d '{"fullName":"Juan Antonio Brena Moral","dni":"12345678Z", "telefono":"+34 600903434"}'
-```
-
-## Entrega
-
-Sube la practica solucionada a un repositorio de Github.
-y crea un documento en formato Markdown, explicando las casuisticas que se van a probar.
-
-## Criterios de evaluación
-
-- 0 -> 5
-    - Entregar en fecha
-    - Subir ejemplo a Github
-    - Ejemplo funcional
-    - Aparentemente funciona
-    - Con README
-- 5 -> 9
-    - La práctica entregada hace lo que se pide
-- 9 -> 10
-    - El alumno explora la materia y añade elementos adicionales
-
-**Nota:** Si el alumno no entrega a tiempo la practica, la calificacion maxima
-sera de un 5 si el retraso es de una semana y no presentado si el retraso es major.
-
-## References
-
-- https://docs.spring.io/spring-boot/docs/1.5.16.RELEASE/reference/html/boot-features-testing.html
-- https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/web/client/TestRestTemplate.html
-- https://www.urlencoder.org/
+* ``ProcessControllerE2ETest`` consta de 4 tests de los 2 endpoints presentes en su clase hómologa ``ProcessController``. En todos los tests se comprueba si los datos introducidos son correctos o no, pero en el ``PostMapping`` del proceso ``data-legacy`` se trabaja con ``MultiValueMap``y el mensaje que devuelve el resultado es ``message1`` o ``message2`` mientras que en el otro proceso se trabaja con ``DataRequest``y ``DataResponse`` y los mensajes devueltos son ``OK``o ``KO``. <br> No obstante, la estructura es siempre la misma, ya que dados unos datos, se obtiene el resultado y se evalúa si la respuesta es correcta. Para ello se ha comprobado que introduciendo datos correctos el mensaje es de éxito y con datos no válidos el mensaje devuelto es de error.

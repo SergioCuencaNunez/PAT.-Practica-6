@@ -55,7 +55,7 @@ public class ProcessControllerE2ETest {
         // Given
         String address = "http://localhost:" + port + "/api/v1/process-step1-legacy";
         MultiValueMap<String, String> data = new LinkedMultiValueMap<String,String>();
-        data.add("fullName","Sergio Cuenca Núñez");
+        data.add("fullName","");
         data.add("dni","749GR7820");
         data.add("telefono","+65430456");
         HttpHeaders headers = new HttpHeaders();
@@ -96,7 +96,7 @@ public class ProcessControllerE2ETest {
 
         // Given
         String address = "http://localhost:" + port + "/api/v1/process-step1";
-        DataRequest dataRequest = new DataRequest("Sergio Cuenca Núñez","749GR7820","+65430456");
+        DataRequest dataRequest = new DataRequest("","749GR7820","+65430456");
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<ProcessController.DataRequest> request = new HttpEntity<>(dataRequest, headers);
 
