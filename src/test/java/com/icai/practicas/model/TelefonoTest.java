@@ -26,11 +26,17 @@ public class TelefonoTest {
         Telefono tlf6 = new Telefono("636 85 67 89");
         assertEquals(true,tlf6.validar());
 
-        Telefono tlf7 = new Telefono("+34 636 85 67 89");
+        Telefono tlf7 = new Telefono("+34636856789");
         assertEquals(true,tlf7.validar());
 
-        Telefono tlf8 = new Telefono("+45 (202) 555-0125");
+        Telefono tlf8 = new Telefono("+34 636856789");
         assertEquals(true,tlf8.validar());
+
+        Telefono tlf9 = new Telefono("+34 636 85 67 89");
+        assertEquals(true,tlf9.validar());
+
+        Telefono tlf10 = new Telefono("+45 (202) 555-0125");
+        assertEquals(true,tlf10.validar());
     }
 
     @Test
