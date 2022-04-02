@@ -1,4 +1,4 @@
-# Práctica 6: Testing de una aplicacion de Spring Boot
+# Práctica 6. Testing de una aplicacion de Spring Boot
 
 En esta práctica se han implementado una serie de tests para comprobar el correcto funcionamiento de las clases ``DNI``,``Telefono`` y `ProcessController`. Para las dos primeras, se han añadido ``Unit Tests`` y para la última, ``E2E Tests``. Para ello se ha creado el paquete `test` en el cuál se encuentran dos carpetas: ``controller`` y ``model``.
 
