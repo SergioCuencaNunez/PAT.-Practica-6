@@ -9,3 +9,5 @@ En esta práctica se han implementado una serie de tests para comprobar el corre
 
 
 * ``ProcessControllerE2ETest`` consta de 4 tests de los 2 endpoints presentes en su clase hómologa ``ProcessController``. En todos los tests se comprueba si los datos introducidos son correctos o no, pero en el ``PostMapping`` del proceso ``data-legacy`` se trabaja con ``MultiValueMap``y el mensaje que devuelve el resultado es ``message1`` o ``message2`` mientras que en el otro proceso se trabaja con ``DataRequest``y ``DataResponse`` y los mensajes devueltos son ``OK``o ``KO``. <br> No obstante, la estructura es siempre la misma, ya que, dados unos datos se obtiene el resultado y se evalúa si la respuesta es correcta. Para ello se ha comprobado que introduciendo datos correctos, el mensaje es de éxito y con datos no válidos el mensaje devuelto es de error.
+
+Por tanto, en total son 10 tests implementados y todos ellos funcionan de manera correcta.
